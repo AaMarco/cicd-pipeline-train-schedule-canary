@@ -38,15 +38,15 @@ pipeline {
                 }
             }
         }
-        stage('CanaryDeploy'){
+        stage('CanaryDeploy') {
             when {
                 branch 'master'
             }
-            enviroment {
+            environment { 
                 CANARY_REPLICAS = 1
             }
             steps {
-                  kubernetesDeploy(
+                kubernetesDeploy(
                     kubeconfigId: 'kubeconfig',
                     configs: 'train-schedule-kube-canary.yml',
                     enableConfigSubstitution: true
@@ -57,8 +57,8 @@ pipeline {
             when {
                 branch 'master'
             }
-            enviroment {
-                CANARY_REPLICAS = 1
+            environment { 
+                CANARY_REPLICAS = 0
             }
             steps {
                 input 'Deploy to Production?'
